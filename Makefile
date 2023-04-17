@@ -38,7 +38,7 @@ type: ## run mypy type checker inside the container
 	docker compose run --rm app mypy --ignore-missing-imports /app/
 
 lint: ## run flake8 linter inside the container
-	docker compose run --rm app flake8 /app/dags
+	docker compose run --rm ruff check /app/
 
 ci: isort format type lint pytest ## run CI checks inside the container
 
