@@ -4,7 +4,6 @@ version = "0.1.0"
 description = "A self-container dbt project that utilizes fal"
 authors = ["Equip Dades <dades@somenergia.coop>"]
 readme = "README.md"
-packages = [{include = "pydata_bcn_dbt_fal"}]
 
 [tool.poetry.dependencies]
 python = "^3.10.9, <3.12.0"
