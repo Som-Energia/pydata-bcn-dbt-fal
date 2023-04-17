@@ -1,0 +1,48 @@
+[tool.poetry]
+name = "pydata-bcn-dbt-fal"
+version = "0.1.0"
+description = "A self-container dbt project that utilizes fal"
+authors = ["Equip Dades <dades@somenergia.coop>"]
+readme = "README.md"
+packages = [{include = "pydata_bcn_dbt_fal"}]
+
+[tool.poetry.dependencies]
+python = "^3.10.9"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+pre-commit = "^3.2.2"
+ruff = "^0.0.261"
+isort = "^5.12.0"
+git-changelog = "^1.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+include = '\.pyi?$'
+line-length = 79
+target-version = ['py38']
+# 'extend-exclude' excludes files or directories in addition to the defaults
+extend-exclude = '''
+(
+  /(
+	  \.eggs         # exclude a few common directories in the
+	| \.git          # root of the project
+	| \.hg
+	| \.mypy_cache
+	| \.tox
+	| \.venv
+	| _build
+	| buck-out
+	| build
+	| dist
+  )/
+)
+'''
+
+[tool.poetry_bumpversion.file."somenergia_dag_utils/__init__.py"]
+search = '__version__ = "{current_version}"'
+replace = '__version__ = "{new_version}"'

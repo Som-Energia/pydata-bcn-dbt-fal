@@ -1,0 +1,14 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "demo",
+      "Port": 5432,
+      "Username": "pydata_bcn",
+      "Group": "PyDataBCN",
+      "Host": "postgres",
+      "SSLMode": "prefer",
+      "MaintenanceDB": "postgres",
+      "Comment": "This server was configured using a JSON. See <https://www.pgadmin.org/docs/pgadmin4/latest/import_export_servers.html>"
+    }
+  }
+}

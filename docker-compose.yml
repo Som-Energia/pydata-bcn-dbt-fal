@@ -1,0 +1,64 @@
+version: "3.7"
+
+services:
+  app:
+    image: pydata-bcn-dbt-fal:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: app
+      args:
+        - "UID=${UID:-1000}"
+        - "GID=${GID:-1000}"
+        - "UNAME=${UNAME:-pydata_bcn}"
+
+  builder:
+    image: pydata-bcn-dbt-fal:builder-latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+      args:
+        - "UID=${UID:-1000}"
+        - "GID=${GID:-1000}"
+        - "UNAME=${UNAME:-pydata_bcn}"
+
+  db:
+    image: postgres:14
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=dontusemeinprod
+      - POSTGRES_USER=pydata_bcn
+      - POSTGRES_DB=bcn
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5555:5432
+    networks:
+      db_nw:
+        aliases:
+          - postgres
+
+  pgadmin:
+    image: dpage/pgadmin4:7.0
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pydata_bcn@yopmail.com
+      - PGADMIN_DEFAULT_PASSWORD=bcn
+    volumes:
+      - ./servers.json:/pgadmin4/servers.json
+    ports:
+      - 5050:80
+    depends_on:
+      - db
+    networks:
+      db_nw:
+        aliases:
+          - pgadmin
+
+networks:
+  db_nw:
+    driver: bridge
+
+volumes:
+  pgdata:
