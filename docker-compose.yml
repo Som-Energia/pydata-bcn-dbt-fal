@@ -23,21 +23,38 @@ services:
         - "GID=${GID:-1000}"
         - "UNAME=${UNAME:-pydata_bcn}"
 
-  db:
+  db-dev:
     image: postgres:14
     restart: always
     environment:
-      - POSTGRES_PASSWORD=dontusemeinprod
-      - POSTGRES_USER=pydata_bcn
-      - POSTGRES_DB=bcn
+      - POSTGRES_PASSWORD=bcn_dev
+      - POSTGRES_USER=pydata_dev
+      - POSTGRES_DB=bcn_dev
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata_dev:/var/lib/postgresql/data
+    ports:
+      - 5559:5432
+    networks:
+      db_nw:
+        aliases:
+          - postgres_dev
+
+  db-prod:
+    image: postgres:14
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=bcn_prod
+      - POSTGRES_USER=pydata_prod
+      - POSTGRES_DB=bcn_prod
+    volumes:
+      - pgdata_prod:/var/lib/postgresql/data
     ports:
       - 5555:5432
     networks:
       db_nw:
         aliases:
-          - postgres
+          - postgres_prod
+
 
   pgadmin:
     image: dpage/pgadmin4:7.0
@@ -50,7 +67,8 @@ services:
     ports:
       - 5050:80
     depends_on:
-      - db
+      - db-dev
+      - db-prod
     networks:
       db_nw:
         aliases:
@@ -61,4 +79,5 @@ networks:
     driver: bridge
 
 volumes:
-  pgdata:
+  pgdata_dev:
+  pgdata_prod:
