@@ -1,0 +1,28 @@
+---
+pydata_bcn_dbt:
+  outputs:
+    dev:
+      type: postgres
+      threads: 1
+      host: 0.0.0.0
+      port: 5559
+      user: pydata_dev
+      pass: "{{ env_var('DBT_DB_PYDATA_BCN_DEV_PASS') }}"
+      dbname: bcn_dev
+      schema: public
+
+    prod:
+      type: postgres
+      threads: 1
+      host: 0.0.0.0
+      port: 5555
+      user: pydata_prod
+      pass: "{{ env_var('DBT_DB_PYDATA_BCN_PROD_PASS') }}"
+      dbname: bcn_prod
+      schema: public
+
+    dev_with_fal:
+      type: fal
+      db_profile: dev
+
+  target: dev_with_fal
