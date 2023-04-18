@@ -20,8 +20,20 @@ repos:
     rev: "v0.0.261"
     hooks:
       - id: ruff
+  - repo: https://github.com/dbt-checkpoint/dbt-checkpoint
+    # https://docs.getdbt.com/blog/enforcing-rules-pre-commit-dbt
+    rev: v1.0.0
+    hooks:
+      - id: dbt-docs-generate
+        args: ["-h"]
+      - id: check-model-has-properties-file
+        name: Check that all models are listed in a YAML file
+        files: ^models/
+      - id: check-model-has-tests
+        name: Check that all models have tests
+        files: ^models/
 fail_fast: true
 files: ".*"
-exclude: "desktop.ini"  # Windows
+exclude: "desktop.ini" # Windows
 default_language_version:
-  python: python3.8.16
+  python: python3.10.9
