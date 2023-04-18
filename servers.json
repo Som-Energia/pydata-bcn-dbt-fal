@@ -1,7 +1,7 @@
 {
   "Servers": {
     "1": {
-      "Name": "pre",
+      "Name": "dev",
       "Port": 5432,
       "Username": "pydata_dev",
       "Group": "PyDataBCN",
