@@ -28,10 +28,10 @@ repos:
         args: ["-h"]
       - id: check-model-has-properties-file
         name: Check that all models are listed in a YAML file
-        files: ^models/
+        files: ^pydata_bcn_dbt/models/
       - id: check-model-has-tests
         name: Check that all models have tests
-        files: ^models/
+        files: ^pydata_bcn_dbt/models/
 fail_fast: true
 files: ".*"
 exclude: "desktop.ini" # Windows
