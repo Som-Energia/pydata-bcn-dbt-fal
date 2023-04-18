@@ -27,8 +27,8 @@ services:
     image: postgres:14
     restart: always
     environment:
-      - POSTGRES_PASSWORD=bcn_dev
       - POSTGRES_USER=pydata_dev
+      - POSTGRES_PASSWORD=bcn_dev
       - POSTGRES_DB=bcn_dev
     volumes:
       - pgdata_dev:/var/lib/postgresql/data
@@ -43,8 +43,8 @@ services:
     image: postgres:14
     restart: always
     environment:
-      - POSTGRES_PASSWORD=bcn_prod
       - POSTGRES_USER=pydata_prod
+      - POSTGRES_PASSWORD=bcn_prod
       - POSTGRES_DB=bcn_prod
     volumes:
       - pgdata_prod:/var/lib/postgresql/data
