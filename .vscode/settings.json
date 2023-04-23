@@ -4,9 +4,6 @@
 		"titleBar.activeBackground": "#394504",
 		"titleBar.activeForeground": "#F7FDDD"
 	},
-	"dbt.runModelCommandAdditionalParams": [
-		"--project-dir /app/pydata_bcn_dbt/"
-	],
 	"dbt.queryLimit": 10,
 	"files.associations": {
 		"*.sql": "jinja-sql"
@@ -15,5 +12,13 @@
 		"editor.defaultFormatter": "innoverio.vscode-dbt-power-user",
 		"editor.formatOnSave": true
 	},
-	"editor.defaultFormatter": "trunk.io"
+	"[dockercompose]": {
+		"editor.defaultFormatter": "trunk.io"
+	},
+	"dbt.runModelCommandAdditionalParams": [
+		"--project-dir pydata_bcn_dbt/"
+	],
+	"dbt.buildModelCommandAdditionalParams": [
+		"--project-dir pydata_bcn_dbt/"
+	]
 }
