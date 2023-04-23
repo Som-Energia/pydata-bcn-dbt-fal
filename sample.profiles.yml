@@ -7,7 +7,7 @@ pydata_bcn_dbt:
       host: 0.0.0.0
       port: 5559
       user: pydata_dev
-      pass: "{{ env_var('DBT_DB_PYDATA_BCN_DEV_PASS') }}"
+      pass: bcn_dev
       dbname: bcn_dev
       schema: public
 
@@ -17,7 +17,7 @@ pydata_bcn_dbt:
       host: 0.0.0.0
       port: 5555
       user: pydata_prod
-      pass: "{{ env_var('DBT_DB_PYDATA_BCN_PROD_PASS') }}"
+      pass: bcn_prod
       dbname: bcn_prod
       schema: public
 
