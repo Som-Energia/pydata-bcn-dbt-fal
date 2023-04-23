@@ -21,6 +21,7 @@ repos:
     hooks:
       - id: ruff
   - repo: https://github.com/dbt-checkpoint/dbt-checkpoint
+    files: ^/pydata_bcn_dbt/
     # https://docs.getdbt.com/blog/enforcing-rules-pre-commit-dbt
     rev: v1.0.0
     hooks:
