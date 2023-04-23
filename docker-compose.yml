@@ -8,6 +8,10 @@ services:
       context: .
       dockerfile: Dockerfile
       target: app
+    networks:
+      db_nw:
+        aliases:
+          - app-dev
   app-dev:
     image: pydata-bcn-dbt-fal:app-dev-latest
     build:
@@ -18,6 +22,10 @@ services:
     user: pydata
     volumes:
       - .:/app:cached
+    networks:
+      db_nw:
+        aliases:
+          - app-dev
 
   db-dev:
     image: postgres:14
