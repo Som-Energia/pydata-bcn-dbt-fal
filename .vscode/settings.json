@@ -4,10 +4,16 @@
 		"titleBar.activeBackground": "#394504",
 		"titleBar.activeForeground": "#F7FDDD"
 	},
-	"dbt.buildModelCommandAdditionalParams": [
-		"--project-dir pydata_bcn_dbt/"
-	],
 	"dbt.runModelCommandAdditionalParams": [
-		"--project-dir pydata_bcn_dbt/"
-	]
+		"--project-dir /app/pydata_bcn_dbt/"
+	],
+	"dbt.queryLimit": 10,
+	"files.associations": {
+		"*.sql": "jinja-sql"
+	},
+	"[jinja-sql]": {
+		"editor.defaultFormatter": "innoverio.vscode-dbt-power-user",
+		"editor.formatOnSave": true
+	},
+	"editor.defaultFormatter": "trunk.io"
 }
