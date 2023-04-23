@@ -25,7 +25,8 @@
 				"codezombiech.gitignore",
 				"ms-python.python",
 				"trunk.io",
-				"innoverio.vscode-dbt-power-user"
+				"innoverio.vscode-dbt-power-user",
+				"elagil.pre-commit-helper"
 			]
 		}
 	}
