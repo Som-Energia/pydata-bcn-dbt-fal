@@ -1,6 +1,16 @@
 ---
 pydata_bcn_dbt:
   outputs:
+    dev-docker:
+      type: postgres
+      threads: 1
+      host: db-dev
+      port: 5432
+      user: pydata_dev
+      pass: bcn_dev
+      dbname: bcn_dev
+      schema: public
+
     dev:
       type: postgres
       threads: 1
@@ -21,8 +31,18 @@ pydata_bcn_dbt:
       dbname: bcn_prod
       schema: public
 
+    prod-docker:
+      type: postgres
+      threads: 1
+      host: db-prod
+      port: 5432
+      user: pydata_prod
+      pass: bcn_prod
+      dbname: bcn_prod
+      schema: public
+
     dev_with_fal:
       type: fal
-      db_profile: dev
+      db_profile: dev-docker
 
   target: dev_with_fal
