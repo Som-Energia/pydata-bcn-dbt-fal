@@ -8,6 +8,8 @@ services:
       context: .
       dockerfile: Dockerfile
       target: app
+    environment:
+      - DBT_PROFILES_DIR=.
     networks:
       db_nw:
         aliases:
@@ -19,6 +21,8 @@ services:
       dockerfile: Dockerfile
       target: develop
     command: /bin/sh -c "while sleep 1000; do :; done"
+    environment:
+      - DBT_PROFILES_DIR=.
     user: pydata
     volumes:
       - .:/app:cached
