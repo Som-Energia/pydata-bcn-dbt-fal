@@ -7,23 +7,14 @@ services:
       context: .
       dockerfile: Dockerfile
       target: app
-      args:
-        - "UID=${UID:-1000}"
-        - "GID=${GID:-1000}"
-        - "UNAME=${UNAME}"
-
   app-dev:
     image: pydata-bcn-dbt-fal:app-dev-latest
     build:
       context: .
       dockerfile: Dockerfile
       target: develop
-      args:
-        - "USER_UID=${UID:-1000}"
-        - "USER_GID=${GID:-1000}"
-        - "USERNAME=${UNAME:-pydata}"
     command: /bin/sh -c "while sleep 1000; do :; done"
-    # user: ${UNAME-diego}
+    user: pydata
     volumes:
       - .:/app:cached
 
@@ -59,12 +50,11 @@ services:
         aliases:
           - postgres_prod
 
-
   pgadmin:
     image: dpage/pgadmin4:7.0
     restart: always
     environment:
-      - PGADMIN_DEFAULT_EMAIL=pydata_bcn@yopmail.com
+      - PGADMIN_DEFAULT_EMAIL=pydata@yopmail.com
       - PGADMIN_DEFAULT_PASSWORD=bcn
     volumes:
       - ./servers.json:/pgadmin4/servers.json

@@ -17,9 +17,9 @@
 ARG WORKDIR="/app"
 
 # global username
-ARG USERNAME=${UNAME}
-ARG USER_UID=${UID}
-ARG USER_GID=$USER_UID
+ARG USERNAME=pydata
+ARG USER_UID=1000
+ARG USER_GID=${USER_UID}
 
 # tag used in all images
 ARG PYTHON_VERSION=3.10.9
@@ -72,7 +72,7 @@ COPY . .
 # ---------------------------------------------------------------------------- #
 
 FROM pre AS builder
-
+#
 # Install dependencies
 RUN poetry install
 
@@ -83,8 +83,29 @@ RUN poetry install
 
 FROM pre AS develop
 
+ARG USERNAME
+ARG USER_UID
+ARG USER_GID
+
 # install dev dependencies
 RUN poetry install --with dev
+
+# Create the user
+# https://code.visualstudio.com/remote/advancedcontainers/add-nonroot-user
+RUN groupadd --gid $USER_GID $USERNAME \
+    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+    #
+    # [Optional] Add sudo support. Omit if you don't need to install software after connecting.
+    && apt-get update \
+    && apt-get install -y sudo \
+    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME
+
+# ------------------------------ user management ----------------------------- #
+# ownership of the workdir to non-root user
+RUN chown -R ${USER_UID}:${USER_GID} ${WORKDIR}
+
+USER ${USERNAME}
 
 # ---------------------------------------------------------------------------- #
 #                                   app stage                                  #
@@ -118,7 +139,7 @@ COPY --from=builder ${WORKDIR} .
 # see https://stackoverflow.com/questions/56844746/how-to-set-uid-and-gid-in-docker-compose
 # see https://nickjanetakis.com/blog/running-docker-containers-as-a-non-root-user-with-a-custom-uid-and-gid
 
-# global username
+# refresh global arguments
 ARG USERNAME
 ARG USER_UID
 ARG USER_GID

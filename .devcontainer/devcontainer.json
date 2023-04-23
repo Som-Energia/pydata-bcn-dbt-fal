@@ -19,7 +19,12 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"stackbreak.comment-divider"
+				"stackbreak.comment-divider",
+				"donjayamanne.githistory",
+				"GitHub.copilot",
+				"codezombiech.gitignore",
+				"ms-python.python",
+				"trunk.io"
 			]
 		}
 	}

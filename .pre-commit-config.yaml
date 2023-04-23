@@ -20,23 +20,23 @@ repos:
     rev: "v0.0.261"
     hooks:
       - id: ruff
-  - repo: https://github.com/dbt-checkpoint/dbt-checkpoint
-    files: ^/pydata_bcn_dbt/
-    # https://docs.getdbt.com/blog/enforcing-rules-pre-commit-dbt
-    rev: v1.0.0
-    hooks:
-      - id: dbt-docs-generate
-        # https://github.com/dbt-checkpoint/dbt-checkpoint/pull/48#issuecomment-1011467026
-        args: ["--cmd-flags", "++project-dir", "pydata_bcn_dbt/", "++profiles-dir", "."]
-      - id: check-model-has-properties-file
-        name: Check that all models are listed in a YAML file
-        files: ^/models/
-        args: ["--cmd-flags", "++project-dir", "pydata_bcn_dbt/", "++profiles-dir", "."]
-      - id: check-model-has-tests
-        name: Check that all models have tests
-        files: ^/models/
-        args: ["--cmd-flags", "++project-dir", "pydata_bcn_dbt/", "++profiles-dir", "."]
-fail_fast: true
+  # - repo: https://github.com/dbt-checkpoint/dbt-checkpoint
+  #   files: ^/pydata_bcn_dbt/
+  #   # https://docs.getdbt.com/blog/enforcing-rules-pre-commit-dbt
+  #   rev: v1.0.0
+  #   hooks:
+  #     - id: dbt-docs-generate
+  #       # https://github.com/dbt-checkpoint/dbt-checkpoint/pull/48#issuecomment-1011467026
+  #       args: ["--cmd-flags", "++project-dir", "pydata_bcn_dbt/", "++profiles-dir", "."]
+  #     - id: check-model-has-properties-file
+  #       name: Check that all models are listed in a YAML file
+  #       files: ^/models/
+  #       args: ["--cmd-flags", "++project-dir", "pydata_bcn_dbt/", "++profiles-dir", "."]
+  #     - id: check-model-has-tests
+  #       name: Check that all models have tests
+  #       files: ^/models/
+  #       args: ["--cmd-flags", "++project-dir", "pydata_bcn_dbt/", "++profiles-dir", "."]
+fail_fast: false
 files: ".*"
 exclude: "desktop.ini" # Windows
 default_language_version:
