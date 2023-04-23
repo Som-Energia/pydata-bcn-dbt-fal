@@ -10,18 +10,22 @@ services:
       args:
         - "UID=${UID:-1000}"
         - "GID=${GID:-1000}"
-        - "UNAME=${UNAME:-pydata_bcn}"
+        - "UNAME=${UNAME}"
 
-  builder:
-    image: pydata-bcn-dbt-fal:builder-latest
+  app-dev:
+    image: pydata-bcn-dbt-fal:app-dev-latest
     build:
       context: .
       dockerfile: Dockerfile
-      target: builder
+      target: develop
       args:
-        - "UID=${UID:-1000}"
-        - "GID=${GID:-1000}"
-        - "UNAME=${UNAME:-pydata_bcn}"
+        - "USER_UID=${UID:-1000}"
+        - "USER_GID=${GID:-1000}"
+        - "USERNAME=${UNAME:-pydata}"
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    # user: ${UNAME-diego}
+    volumes:
+      - .:/app:cached
 
   db-dev:
     image: postgres:14

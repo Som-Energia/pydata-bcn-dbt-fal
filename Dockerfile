@@ -8,17 +8,27 @@
 # - https://github.com/python-poetry/poetry/issues/1178
 # - https://github.com/python-poetry/poetry/issues/1178#issuecomment-1238475183
 
+
 # ---------------------------------------------------------------------------- #
-#                                  build stage                                 #
+#                            global build arguments                            #
 # ---------------------------------------------------------------------------- #
 
 # Global ARG, available to all stages (if renewed)
 ARG WORKDIR="/app"
 
+# global username
+ARG USERNAME=${UNAME}
+ARG USER_UID=${UID}
+ARG USER_GID=$USER_UID
+
 # tag used in all images
 ARG PYTHON_VERSION=3.10.9
 
-FROM python:${PYTHON_VERSION} AS builder
+# ---------------------------------------------------------------------------- #
+#                                  pre stage                                 #
+# ---------------------------------------------------------------------------- #
+
+FROM python:${PYTHON_VERSION} AS pre
 
 # Renew (https://stackoverflow.com/a/53682110):
 ARG WORKDIR
@@ -44,7 +54,10 @@ ENV PATH=/opt/pipx/bin:${WORKDIR}/.venv/bin:$PATH \
 	POETRY_VIRTUALENVS_IN_PROJECT=true
 
 # Install Pipx using pip
+
+# trunk-ignore(hadolint/DL3013)
 RUN python -m pip install --no-cache-dir --upgrade pip pipx==${PIPX_VERSION}
+
 RUN pipx ensurepath && pipx --version
 
 # Install Poetry using pipx
@@ -54,16 +67,32 @@ RUN pipx install --force poetry==${POETRY_VERSION}
 WORKDIR ${WORKDIR}
 COPY . .
 
+# ---------------------------------------------------------------------------- #
+#                                 builder stage                                #
+# ---------------------------------------------------------------------------- #
+
+FROM pre AS builder
+
 # Install dependencies
+RUN poetry install
+
+
+# ---------------------------------------------------------------------------- #
+#                                   dev stage                                  #
+# ---------------------------------------------------------------------------- #
+
+FROM pre AS develop
+
+# install dev dependencies
 RUN poetry install --with dev
 
 # ---------------------------------------------------------------------------- #
 #                                   app stage                                  #
 # ---------------------------------------------------------------------------- #
 
-# We don't want to use alpine because it doesn't have the `musl` C library
+# We don't want to use alpine because porting from debian is challenging
 # https://stackoverflow.com/a/67695490/5819113
-FROM python:${PYTHON_VERSION}-slim as app
+FROM python:${PYTHON_VERSION}-slim AS app
 
 # refresh ARG
 ARG WORKDIR
@@ -81,10 +110,7 @@ WORKDIR ${WORKDIR}
 
 COPY --from=builder ${WORKDIR} .
 
-
-# ---------------------------------------------------------------------------- #
-#                                user management                               #
-# ---------------------------------------------------------------------------- #
+# ------------------------------ user management ----------------------------- #
 
 # For more on users and groups
 # see https://www.debian.org/doc/debian-policy/ch-opersys.html#uid-and-gid-classes
@@ -92,30 +118,25 @@ COPY --from=builder ${WORKDIR} .
 # see https://stackoverflow.com/questions/56844746/how-to-set-uid-and-gid-in-docker-compose
 # see https://nickjanetakis.com/blog/running-docker-containers-as-a-non-root-user-with-a-custom-uid-and-gid
 
-ARG UID
-ARG GID
-ARG UNAME
-
-ENV UID=${UID:-1000}
-ENV GID=${GID:-1000}
-ENV UNAME=${UNAME:-somenergia}
+# global username
+ARG USERNAME
+ARG USER_UID
+ARG USER_GID
 
 RUN groupadd \
-	--gid $GID \
-	"$UNAME" && \
+	--gid $USER_GID \
+	"$USERNAME" && \
 	useradd \
 	--no-log-init \
 	--home-dir "${WORKDIR}" \
-	--uid $UID \
-	--gid $GID \
+	--uid $USER_UID \
+	--gid $USER_GID \
 	--no-create-home \
-	"$UNAME"
+	"$USERNAME"
 
-USER ${UID}
+USER ${USERNAME}
 
-# ---------------------------------------------------------------------------- #
-#                             App-specific settings                            #
-# ---------------------------------------------------------------------------- #
+# ------------------------------- app specific ------------------------------- #
 
 ENTRYPOINT [ "python" ]
 CMD [ "--version" ]
