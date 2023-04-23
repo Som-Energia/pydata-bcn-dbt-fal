@@ -90,8 +90,17 @@ ARG USER_GID
 # install dev dependencies
 RUN poetry install --with dev
 
+# ----------------------- add development dependencies ----------------------- #
+
+# trunk-ignore(hadolint/DL3008)
+# trunk-ignore(hadolint/DL3015)
+RUN apt-get update \
+	&& apt-get install vim netcat iputils-ping -y
+
 # Create the user
 # https://code.visualstudio.com/remote/advancedcontainers/add-nonroot-user
+# trunk-ignore(hadolint/DL3008)
+# trunk-ignore(hadolint/DL3015)
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
     #
@@ -103,7 +112,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
 
 # ------------------------------ user management ----------------------------- #
 # ownership of the workdir to non-root user
-RUN chown -R ${USER_UID}:${USER_GID} ${WORKDIR}
+RUN chown -R "${USER_UID}:${USER_GID}" "${WORKDIR}"
 
 USER ${USERNAME}
 
