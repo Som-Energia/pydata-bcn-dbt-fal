@@ -102,9 +102,6 @@ ARG USERNAME
 ARG USER_UID
 ARG USER_GID
 
-# install dev dependencies
-RUN poetry install --with dev
-
 # ----------------------- add development dependencies ----------------------- #
 
 # trunk-ignore(hadolint/DL3008)
@@ -128,6 +125,9 @@ RUN groupadd --gid $USER_GID $USERNAME \
 # ------------------------------ user management ----------------------------- #
 # ownership of the workdir to non-root user
 RUN chown -R "${USER_UID}:${USER_GID}" "${WORKDIR}"
+
+# install dev dependencies
+RUN poetry install --with dev
 
 USER ${USERNAME}
 
