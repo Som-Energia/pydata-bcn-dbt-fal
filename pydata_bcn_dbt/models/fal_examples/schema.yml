@@ -1,0 +1,12 @@
+---
+version: 2
+
+models:
+  - name: forecast
+    description: An example of a forecast model using fbprophet
+    config:
+      materialized: table
+    meta:
+      fal:
+        scripts:
+          - forecast.py
