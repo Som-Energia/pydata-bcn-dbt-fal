@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "pydata-bcn-dbt-fal"
 version = "0.1.0"
-description = "A self-container dbt project that utilizes fal"
+description = "A self-contained dbt project that utilizes fal and other goodies"
 authors = ["Equip Dades <dades@somenergia.coop>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10.9, <3.12.0"
-dbt-postgres = "^1.4.5"
+dbt-postgres = "^1.4.6"
 dbt-fal = {extras = ["postgres"], version = "^1.4.7"}
 
 
@@ -18,6 +18,9 @@ ruff = "^0.0.261"
 isort = "^5.12.0"
 git-changelog = "^1.0.0"
 shandy-sqlfmt = {extras = ["jinjafmt"], version = "^0.18.0"}
+
+[tool.poetry.group.dbt-docs.dependencies]
+dbt-postgres = "^1.4.6"
 
 [build-system]
 requires = ["poetry-core"]

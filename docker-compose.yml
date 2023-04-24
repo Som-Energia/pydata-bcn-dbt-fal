@@ -13,7 +13,7 @@ services:
     networks:
       db_nw:
         aliases:
-          - app-dev
+          - app
   app-dev:
     image: pydata-bcn-dbt-fal:app-dev-latest
     build:
@@ -30,6 +30,21 @@ services:
       db_nw:
         aliases:
           - app-dev
+
+  dbt-docs:
+    image: pydata-bcn-dbt-fal:dbt-docs-latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dbt-docs
+      network: host
+    ports:
+      - 8282:80
+    networks:
+      db_nw:
+        aliases:
+          - dbt-docs
+    command: /bin/sh -c "while sleep 1000; do :; done"
 
   db-dev:
     image: postgres:14

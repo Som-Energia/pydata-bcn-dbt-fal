@@ -76,6 +76,21 @@ FROM pre AS builder
 # Install dependencies
 RUN poetry install
 
+# ---------------------------------------------------------------------------- #
+#                                 only docs stage                               #
+# ---------------------------------------------------------------------------- #
+
+FROM pre AS dbt-docs-builder
+
+# Install dependencies
+RUN poetry install --only dbt-docs
+
+# pull dbt dependencies
+RUN dbt deps --project-dir pydata_bcn_dbt/
+
+# build static pages
+RUN dbt docs generate --project-dir pydata_bcn_dbt/
+
 
 # ---------------------------------------------------------------------------- #
 #                                   dev stage                                  #
@@ -102,13 +117,13 @@ RUN apt-get update \
 # trunk-ignore(hadolint/DL3008)
 # trunk-ignore(hadolint/DL3015)
 RUN groupadd --gid $USER_GID $USERNAME \
-    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
-    #
-    # [Optional] Add sudo support. Omit if you don't need to install software after connecting.
-    && apt-get update \
-    && apt-get install -y sudo \
-    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME
+	&& useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+	#
+	# [Optional] Add sudo support. Omit if you don't need to install software after connecting.
+	&& apt-get update \
+	&& apt-get install -y sudo \
+	&& echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+	&& chmod 0440 /etc/sudoers.d/$USERNAME
 
 # ------------------------------ user management ----------------------------- #
 # ownership of the workdir to non-root user
@@ -170,3 +185,25 @@ USER ${USERNAME}
 
 ENTRYPOINT [ "python" ]
 CMD [ "--version" ]
+
+
+# ---------------------------------------------------------------------------- #
+#                                  docs serve                                  #
+# ---------------------------------------------------------------------------- #
+
+# serve site
+FROM nginx:stable-alpine AS dbt-docs
+
+# refresh ARG
+ARG WORKDIR
+
+# here copy any nginx related files you might need for your deployment, for example nginx.conf
+# ADD ...
+COPY --from=dbt-docs-builder \
+	${WORKDIR}/pydata_bcn_dbt/target/index.html \
+	${WORKDIR}/pydata_bcn_dbt/target/manifest.json \
+	${WORKDIR}/pydata_bcn_dbt/target/catalog.json \
+	${WORKDIR}/pydata_bcn_dbt/target/run_results.json \
+	/usr/share/nginx/html/
+
+EXPOSE 80
