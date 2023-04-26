@@ -192,3 +192,4 @@ pip-selfcheck.json
 # dbt
 profiles.yml
 .user.yml
+pydata_bcn_dbt/out/forecasts/my_forecast_plot.png

@@ -10,3 +10,11 @@ models:
       fal:
         scripts:
           - sales.py
+  - name: forecast
+    description: Sales ticket metrics
+    config:
+      materialized: table
+    meta:
+      fal:
+        scripts:
+          - forecast.py
