@@ -2,10 +2,16 @@ import random
 
 import holidays
 import pandas as pd
+import pytz
 
 
 def model(dbt, session):
-    date_range = pd.date_range(start="2000-01-01", end="2030-01-01", freq="D")
+    date_range = pd.date_range(
+        start="2000-01-01",
+        end="2030-01-01",
+        freq="D",
+        tz=pytz.timezone("UTC"),
+    )
     df = pd.DataFrame({"date": date_range})
 
     # Comunitat Autonoma holidays (ac codes: https://www.iso.org/obp/ui/#iso:code:3166:ES)
