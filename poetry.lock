@@ -25,6 +25,23 @@ docs = ["Sphinx (>=1.2.2)", "sphinx-rtd-theme (>=0.1.6)"]
 test = ["PyICU (>=2.4.2)", "coverage (>=3.7.1)", "cssselect (>=0.9.1)", "lxml (>=3.6.0)", "pytest", "pytest-cov", "pytz (>=2015.4)"]
 
 [[package]]
+name = "analytics-python"
+version = "1.2.9"
+description = "The hassle-free way to integrate analytics into any python application."
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "analytics-python-1.2.9.tar.gz", hash = "sha256:f3d1ca27cb277da67c10d71a5c9c593d2a9ec99109e31409ab771b44821a86bf"},
+    {file = "analytics_python-1.2.9-py2.py3-none-any.whl", hash = "sha256:69d88b2d3e2c350e6803487a1a802e0fd111e86665d4c9b16c3c6f5fbc6c445f"},
+]
+
+[package.dependencies]
+python-dateutil = ">2.1"
+requests = ">=2.7,<3.0"
+six = ">=1.5"
+
+[[package]]
 name = "attrs"
 version = "23.1.0"
 description = "Classes Without Boilerplate"
@@ -1192,6 +1209,22 @@ zipp = ">=0.5"
 docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
 perf = ["ipython"]
 testing = ["flake8 (<5)", "flufl.flake8", "importlib-resources (>=1.3)", "packaging", "pyfakefs", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.3)", "pytest-flake8", "pytest-mypy (>=0.9.1)", "pytest-perf (>=0.9.2)"]
+
+[[package]]
+name = "importlib-resources"
+version = "5.12.0"
+description = "Read resources from Python packages"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "importlib_resources-5.12.0-py3-none-any.whl", hash = "sha256:7b1deeebbf351c7578e09bf2f63fa2ce8b5ffec296e0d349139d43cca061a81a"},
+    {file = "importlib_resources-5.12.0.tar.gz", hash = "sha256:4be82589bf5c1d7999aedf2a45159d10cb3ca4f19b2271f8792bc8e6da7b22f6"},
+]
+
+[package.extras]
+docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
+testing = ["flake8 (<5)", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.3)", "pytest-flake8", "pytest-mypy (>=0.9.1)"]
 
 [[package]]
 name = "isodate"
@@ -2630,6 +2663,29 @@ files = [
 ]
 
 [[package]]
+name = "re-data"
+version = "0.10.7"
+description = "re_data - data quality framework"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "re_data-0.10.7-py3-none-any.whl", hash = "sha256:89b1cc4eecb3603ac9f4ac60cdb73ea38c5196ef20e6aa4e1c24edb5e8bf2ed1"},
+    {file = "re_data-0.10.7.tar.gz", hash = "sha256:11c4c53ec132a2cd10a05fab73717c56a7cd639e5aa87cb7f069a927c29b512d"},
+]
+
+[package.dependencies]
+analytics-python = "*"
+click = ">=8,<9"
+dbt-core = ">=1.0.0,<1.5.0"
+jsonschema = ">=3.0.0"
+tabulate = "0.8.9"
+yachalk = ">=0.1.0,<0.2.0"
+
+[package.extras]
+dev = ["black", "isort", "pre-commit"]
+
+[[package]]
 name = "requests"
 version = "2.28.2"
 description = "Python HTTP for Humans."
@@ -2878,6 +2934,21 @@ tests = ["coverage[toml]", "freezegun (>=0.2.8)", "pretend", "pytest (>=6.0)", "
 typing = ["mypy", "rich", "twisted"]
 
 [[package]]
+name = "tabulate"
+version = "0.8.9"
+description = "Pretty-print tabular data"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "tabulate-0.8.9-py3-none-any.whl", hash = "sha256:d7c013fe7abbc5e491394e10fa845f8f32fe54f8dc60c6622c6cf482d25d47e4"},
+    {file = "tabulate-0.8.9.tar.gz", hash = "sha256:eb1d13f25760052e8931f2ef80aaf6045a6cceb47514db8beab24cded16f13a7"},
+]
+
+[package.extras]
+widechars = ["wcwidth"]
+
+[[package]]
 name = "tblib"
 version = "1.7.0"
 description = "Traceback serialization library."
@@ -3103,6 +3174,22 @@ files = [
 ]
 
 [[package]]
+name = "yachalk"
+version = "0.1.5"
+description = "🖍️ Terminal string styling done right"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "yachalk-0.1.5-py3-none-any.whl", hash = "sha256:fe389be1d574a3be00e0b849f1c0767f81da5bdfed9b122da07e6861e27c1c62"},
+    {file = "yachalk-0.1.5.tar.gz", hash = "sha256:cac3b66a198a280f06adfde82f1604aecd9dd5ffc372a02b4f36d79ec499798a"},
+]
+
+[package.dependencies]
+importlib-resources = "*"
+setuptools = "*"
+
+[[package]]
 name = "zipp"
 version = "3.15.0"
 description = "Backport of pathlib-compatible object wrapper for zip files"
@@ -3121,4 +3208,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10.9, <3.12.0"
-content-hash = "ac831fc14f760926840e9a3650127ef2059761cf994a0eb5183e5a4029e05cce"
+content-hash = "82843ff6201c4c2c957d9ec6f41218ae72a58813051da7831b95b8298eb65b56"
