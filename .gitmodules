@@ -1,0 +1,3 @@
+[submodule "notification-center-demo"]
+	path = notification-center-demo
+	url = https://github.com/novuhq/notification-center-demo.git

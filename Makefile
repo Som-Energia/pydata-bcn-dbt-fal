@@ -43,11 +43,11 @@ lint: ## run flake8 linter inside the container
 ci: isort format type lint pytest ## run CI checks inside the container
 
 # ---------------------------------------------------------------------------- #
-#                               debugging entries                              #
+#                                 novu demo app                                #
 # ---------------------------------------------------------------------------- #
 
-debug.build: ## build image using docker build
-	@docker build -t ${SOMENERGIA_REGISTRY_IMAGE}:${SOMENERGIA_DOCKER_TAG} -f Dockerfile.poetry --no-cache . --progress=plain
+novu.demo-app.install: ## install the demo app provided by novu
+	@cd notification-center-demo && npm run setup:onboarding -- kemCTwJofzaN 982454b92921646f6ce5bcec45c2d4cf http://localhost:3000 http://localhost:3002
 
-debug.build.target-builder: ## pass the --target=builder flag to docker build
-	@docker build -t ${SOMENERGIA_REGISTRY_IMAGE}:${SOMENERGIA_DOCKER_TAG}-builder --target=builder -f Dockerfile.poetry --no-cache . --progress=plain
+novu.demo-app.launch: ## install the demo app provided by novu
+	@cd notification-center-demo && npm run devq
