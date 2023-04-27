@@ -10,8 +10,14 @@ services:
       target: app
       cache_from:
         - pydata-bcn-dbt-fal:app-latest
+    environment:
+      - NOVU_API_KEY=${NOVU_API_KEY?Variable not set}
+      - NOVU_APP_ID=${NOVU_APP_ID?Variable not set}
     networks:
       db_nw:
+        aliases:
+          - app
+      novu_nw:
         aliases:
           - app
   app-dev:
@@ -25,6 +31,8 @@ services:
     command: /bin/sh -c "while sleep 1000; do :; done"
     environment:
       - DBT_PROFILES_DIR=.
+      - NOVU_API_KEY=${NOVU_API_KEY?Variable not set}
+      - NOVU_APP_ID=${NOVU_APP_ID?Variable not set}
     user: pydata
     volumes:
       - .:/app:cached
@@ -32,7 +40,9 @@ services:
       db_nw:
         aliases:
           - app-dev
-
+      novu_nw:
+        aliases:
+          - app
   # dbt-docs:
   #   image: pydata-bcn-dbt-fal:dbt-docs-latest
   #   build:

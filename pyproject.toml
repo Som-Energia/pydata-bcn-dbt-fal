@@ -13,6 +13,8 @@ prophet = "^1.1.2"
 holidays = "^0.23"
 plotly = "^5.14.1"
 kaleido = "0.2.1"
+novu = "^1.2.0"
+python-decouple = "^3.8"
 
 
 [tool.poetry.group.dev.dependencies]
