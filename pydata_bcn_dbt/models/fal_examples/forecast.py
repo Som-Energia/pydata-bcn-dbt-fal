@@ -1,6 +1,8 @@
 import datetime as dt
+import os
 
 import pandas as pd
+from novu.api import EventApi
 from prophet import Prophet
 from prophet.plot import plot_plotly
 
@@ -29,6 +31,20 @@ def model(dbt, session):
 
     fig = plot_plotly(m, forecast, xlabel="Date", ylabel="Sales")
     fig.write_image("out/forecasts/my_forecast_plot.png")
+
+    # report the forecast to novu
+    event_api = EventApi(
+        "http://novu-api:3000",
+        os.environ.get("NOVU_API_KEY"),
+    )
+
+    yhat_mean = forecast["yhat"].mean().item()
+
+    event_api.trigger(
+        name="on-boarding-notification",
+        recipients=os.environ.get("NOVU_APP_ID"),
+        payload={"message": f"Hello, pydata! Watch this: {yhat_mean=:0.2f}"},
+    )
 
     return forecast
 

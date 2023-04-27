@@ -1,3 +1,4 @@
+import datetime as dt
 import random
 
 import holidays
@@ -6,8 +7,8 @@ import pandas as pd
 
 def model(dbt, session):
     date_range = pd.date_range(
-        start="2021-01-01",
-        end="2022-01-01",
+        start="2022-01-01",
+        end=dt.datetime.today(),
         freq="D",
     )
 
