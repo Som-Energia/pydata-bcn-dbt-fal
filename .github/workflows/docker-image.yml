@@ -36,6 +36,6 @@ jobs:
         file: Dockerfile
         # Push is a shorthand for --output=type=registry
         push: true
-        tags: pydata-bcn-dbt-fal:app-dev-latest
+        tags: ghcr.io/pydata-bcn-dbt-fal:app-dev-latest
         # Sets the target stage to build
         target: develop
