@@ -45,6 +45,7 @@ jobs:
           type=semver,pattern={{major}}.{{minor}}
           type=semver,pattern={{major}}
           type=sha
+          app-dev-latest
   
     - name: Build and push Docker images
       # You may pin to the exact commit or the version.
