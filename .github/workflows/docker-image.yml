@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
 
 
@@ -18,13 +22,30 @@ jobs:
       
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v2
       with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        tags: |
+          type=schedule
+          type=ref,event=branch
+          type=ref,event=pr
+          type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}
+          type=semver,pattern={{major}}
+          type=sha
+  
     - name: Build and push Docker images
       # You may pin to the exact commit or the version.
       # uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
@@ -38,6 +59,7 @@ jobs:
         file: Dockerfile
         # Push is a shorthand for --output=type=registry
         push: true
-        tags: ghcr.io/pydata-bcn-dbt-fal:app-dev-latest
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
         # Sets the target stage to build
         target: develop
