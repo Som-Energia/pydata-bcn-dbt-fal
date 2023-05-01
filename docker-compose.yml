@@ -17,9 +17,6 @@ services:
       db_nw:
         aliases:
           - app
-      novu_nw:
-        aliases:
-          - app
   app-dev:
     image: pydata-bcn-dbt-fal:app-dev-latest
     build:
@@ -40,9 +37,7 @@ services:
       db_nw:
         aliases:
           - app-dev
-      novu_nw:
-        aliases:
-          - app
+
   # dbt-docs:
   #   image: pydata-bcn-dbt-fal:dbt-docs-latest
   #   build:

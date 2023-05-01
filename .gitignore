@@ -193,3 +193,4 @@ pip-selfcheck.json
 profiles.yml
 .user.yml
 pydata_bcn_dbt/out/forecasts/my_forecast_plot.png
+metabase_db_password.txt
