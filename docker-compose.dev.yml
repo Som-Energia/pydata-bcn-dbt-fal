@@ -3,14 +3,14 @@ version: "3.9"
 
 services:
   dev_env:
-    image: ghcr.io/som-energia/pydata-bcn-dbt-fal:dev
+    image: ghcr.io/som-energia/pydata-bcn-dbt-fal:latest
     command: /bin/sh -c "while sleep 1000; do :; done"
     build:
       context: .
       dockerfile: Dockerfile
       target: dev_env
       cache_from:
-        - ghcr.io/som-energia/pydata-bcn-dbt-fal:dev
+        - ghcr.io/som-energia/pydata-bcn-dbt-fal:latest
     volumes:
       - .:/app:cached
     environment:
