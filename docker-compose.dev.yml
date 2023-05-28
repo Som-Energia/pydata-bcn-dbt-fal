@@ -4,6 +4,7 @@ version: "3.9"
 services:
   dev_env:
     image: ghcr.io/som-energia/pydata-bcn-dbt-fal:latest
+    pull_policy: always
     command: /bin/sh -c "while sleep 1000; do :; done"
     build:
       context: .
