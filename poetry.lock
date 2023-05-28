@@ -503,6 +503,17 @@ docs = ["myst-parser", "sphinx", "sphinx-rtd-theme"]
 tests = ["coverage"]
 
 [[package]]
+name = "cowsay"
+version = "5.0"
+description = "The famous cowsay for GNU/Linux is now available for python"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "cowsay-5.0.tar.gz", hash = "sha256:c00e02444f5bc7332826686bd44d963caabbaba9a804a63153822edce62bbbf3"},
+]
+
+[[package]]
 name = "cryptography"
 version = "40.0.2"
 description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
@@ -3208,4 +3219,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10.9, <3.12.0"
-content-hash = "82843ff6201c4c2c957d9ec6f41218ae72a58813051da7831b95b8298eb65b56"
+content-hash = "93144d155b624892d2617243fd4d84e0c70d69652a3b49bacae3823035395f36"

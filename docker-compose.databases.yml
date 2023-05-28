@@ -1,0 +1,65 @@
+---
+version: "3.9"
+
+services:
+  db-dev:
+    image: postgres:14
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=pydata_dev
+      - POSTGRES_PASSWORD=bcn_dev
+      - POSTGRES_DB=bcn_dev
+    volumes:
+      - pgdata_dev:/var/lib/postgresql/data
+    ports:
+      - 5559:5432
+    networks:
+      db_nw:
+        aliases:
+          - postgres_dev
+
+  db-prod:
+    image: postgres:14
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=pydata_prod
+      - POSTGRES_PASSWORD=bcn_prod
+      - POSTGRES_DB=bcn_prod
+    volumes:
+      - pgdata_prod:/var/lib/postgresql/data
+    ports:
+      - 5560:5432
+    networks:
+      db_nw:
+        aliases:
+          - postgres_prod
+
+  pgadmin:
+    image: dpage/pgadmin4:7.0
+    restart: unless-stopped
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pydata@yopmail.com
+      - PGADMIN_DEFAULT_PASSWORD=bcn
+    volumes:
+      - ./containers/pgadmin/servers.json:/pgadmin4/servers.json
+    ports:
+      - 5050:80
+    depends_on:
+      - db-dev
+      - db-prod
+    networks:
+      db_nw:
+        aliases:
+          - pgadmin
+
+networks:
+  db_nw:
+    driver: bridge
+    name: db_nw
+  novu_nw:
+    driver: bridge
+    name: novu_nw
+
+volumes:
+  pgdata_dev:
+  pgdata_prod:
