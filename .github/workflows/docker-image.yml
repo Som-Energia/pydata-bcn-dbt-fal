@@ -1,6 +1,9 @@
 name: Docker Image CI
 
 on:
+  label:
+    types:
+      - created
   push:
     branches: ["main"]
   pull_request:
@@ -9,7 +12,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
