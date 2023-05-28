@@ -1,0 +1,37 @@
+---
+version: "3.9"
+
+services:
+  dev_env:
+    image: ghcr.io/som-energia/pydata-bcn-dbt-fal:dev
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev_env
+      cache_from:
+        - ghcr.io/som-energia/pydata-bcn-dbt-fal:dev
+    volumes:
+      - .:/app:cached
+    environment:
+      - NOVU_API_KEY=${NOVU_API_KEY?Variable not set}
+      - NOVU_APP_ID=${NOVU_APP_ID?Variable not set}
+    networks:
+      db_nw:
+        aliases:
+          - app
+      novu_nw:
+        aliases:
+          - app
+
+networks:
+  db_nw:
+    driver: bridge
+    name: db_nw
+  novu_nw:
+    driver: bridge
+    name: novu_nw
+
+volumes:
+  pgdata_dev:
+  pgdata_prod:

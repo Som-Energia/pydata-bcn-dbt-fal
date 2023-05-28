@@ -1,1 +1,49 @@
 .python-version
+
+.git/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+.venv
+.local/share/virtualenv
+
+# development stuff
+.trunk
+.vscode
+.python-version
+.vscode
+.vscode-server
+.*.swp
+*.egg-info
+.devcontainer
+*.pytest_cache
+*.ruff_cache
+*.mypy_cache
+
+# local configuration for development purposes
+poetry.toml
+
+# build artifacts
+site
+target
+dist
+
+# secrets or configurations should not be passed to the image
+.env
+.env.*
+sample.env
+example.env
+
+# DIND not required
+.dockerignore
+Dockerfile
+Dockerfile.*
+docker-compose.*
+
+# CI/CD
+.gitlab-ci.yml
+.github
+
+.dotnet
+logs

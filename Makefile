@@ -16,7 +16,7 @@ build-from-scratch: ## build docker images and ignore existing caches
 	@docker compose build --progress=plain --no-cache
 
 sh: ## run a shell in the container
-	@docker compose run --rm -it --entrypoint sh app
+	@docker compose run --rm -it --entrypoint sh dev_env
 
 sh.target-builder: ## run a shell in the container
 	@docker compose run --rm -it --entrypoint sh builder
@@ -26,16 +26,16 @@ sh.target-builder: ## run a shell in the container
 # ---------------------------------------------------------------------------- #
 
 pytest: ## run pytest inside the container
-	docker compose run --rm app pytest -p no:warnings -v /app/dags
+	docker compose run --rm dev_env pytest -p no:warnings -v /app/dags
 
 format: ## run black formatter inside the container
-	docker compose run --rm app python -m black -S --line-length 79 .
+	docker compose run --rm dev_env python -m black -S --line-length 79 .
 
 isort: ## run isort formatter for python imports inside the container
-	docker compose run --rm app isort .
+	docker compose run --rm dev_env isort .
 
 type: ## run mypy type checker inside the container
-	docker compose run --rm app mypy --ignore-missing-imports /app/
+	docker compose run --rm dev_env mypy --ignore-missing-imports /app/
 
 lint: ## run flake8 linter inside the container
 	docker compose run --rm ruff check /app/

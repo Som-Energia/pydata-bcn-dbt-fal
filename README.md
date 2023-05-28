@@ -1,8 +1,8 @@
 # About
 
-example project with [dbt-fal](https://github.com/fal-ai/fal)
+Example project with [dbt-fal](https://github.com/fal-ai/fal)
 
-## Getting started using `devcontainer` and Visual Studio Code
+## Quickstart using `devcontainer` and Visual Studio Code
 
 - Install Docker and Docker Compose
 - Clone this repository

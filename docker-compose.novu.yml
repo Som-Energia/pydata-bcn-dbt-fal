@@ -50,7 +50,7 @@ services:
       NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
       API_CONTEXT_PATH: ${API_CONTEXT_PATH}
     ports:
-      - "3000:3000"
+      - "3020:3000"
     networks:
       default:
       novu_nw:
@@ -134,6 +134,11 @@ services:
       - 4701:4701
 volumes:
   mongodb: ~
+
 networks:
   novu_nw:
     driver: bridge
+    name: novu_nw
+  db_nw:
+    driver: bridge
+    name: db_nw
