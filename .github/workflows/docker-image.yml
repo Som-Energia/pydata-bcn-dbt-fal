@@ -54,7 +54,7 @@ jobs:
           # Path to the Dockerfile
           file: Dockerfile
           # Push is a shorthand for --output=type=registry
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           # Sets the target stage to build
