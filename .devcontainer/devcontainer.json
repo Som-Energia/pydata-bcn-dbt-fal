@@ -23,7 +23,8 @@
 				"ms-python.python",
 				"trunk.io",
 				"innoverio.vscode-dbt-power-user",
-				"elagil.pre-commit-helper"
+				"elagil.pre-commit-helper",
+				"ms-toolsai.jupyter"
 			]
 		}
 	},
