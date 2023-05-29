@@ -42,7 +42,7 @@ def model(dbt, session):
 
     event_api.trigger(
         name="on-boarding-notification",
-        recipients=os.environ.get("NOVU_APP_ID"),
+        recipients=os.environ.get("NOVU_SUBSCRIBER_ID"),
         payload={"message": f"Hello, pydata! Watch this: {yhat_mean=:0.2f}"},
     )
 
