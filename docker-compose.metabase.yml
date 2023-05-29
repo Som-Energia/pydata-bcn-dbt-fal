@@ -8,6 +8,7 @@ services:
     hostname: metabase
     volumes:
       - /dev/urandom:/dev/random:ro
+      - ./containers/metabase/config.yml:/root/config.yml:ro
     ports:
       - 3010:3000
     environment:
@@ -17,6 +18,7 @@ services:
       MB_DB_USER_FILE: /run/secrets/db_user
       MB_DB_PASS_FILE: /run/secrets/db_password
       MB_DB_HOST: postgres
+      MB_CONFIG_FILE_PATH: /root/config.yml
     networks:
       metanet1:
       db_nw:
@@ -54,6 +56,6 @@ networks:
     name: db_nw
 secrets:
   db_password:
-    file: metabase_db_password.txt
+    file: ./containers/metabase/db_password.txt
   db_user:
-    file: metabase_db_user.txt
+    file: ./containers/metabase/db_user.txt

@@ -23,14 +23,11 @@
 				"ms-python.python",
 				"trunk.io",
 				"innoverio.vscode-dbt-power-user",
-				"elagil.pre-commit-helper"
+				"elagil.pre-commit-helper",
+				"ms-toolsai.jupyter"
 			]
 		}
 	},
-	"runArgs": [
-		"--env-file",
-		"example.env"
-	],
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

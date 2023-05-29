@@ -1,0 +1,24 @@
+---
+# https://www.metabase.com/docs/latest/configuring-metabase/config-files
+version: 1
+config:
+  users:
+    - first_name: pydata
+      last_name: barcelona
+      password: pydata
+      email: pydatabcn@yopmail.com
+  databases:
+    - name: pydata_dev (Postgres)
+      engine: postgres
+      details:
+        host: postgres_dev
+        port: 5432
+        password: bcn_dev
+        dbname: bcn_dev
+    - name: pydata_prod (Postgres)
+      engine: postgres
+      details:
+        host: postgres_prod
+        port: 5432
+        password: bcn_prod
+        dbname: bcn_prod
