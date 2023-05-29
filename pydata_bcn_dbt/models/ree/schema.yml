@@ -1,0 +1,12 @@
+---
+version: 2
+
+models:
+  - name: demand_ree
+    description: A table generated from <https://www.ree.es/es/clientes/generador/gestion-medidas-electricas/consulta-perfiles-de-consumo>
+    config:
+      materialized: table
+    meta:
+      fal:
+        scripts:
+          - demand_ree.py

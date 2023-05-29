@@ -1,0 +1,6 @@
+---
+selectors:
+  - name: ree_forecast
+    definition:
+      union:
+        - demand_ree
