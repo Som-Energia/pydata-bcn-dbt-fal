@@ -17,7 +17,7 @@ services:
       - .:/app:cached
     environment:
       - NOVU_API_KEY=${NOVU_API_KEY-create-me}
-      - NOVU_APP_ID=${NOVU_APP_ID-create-me}
+      - NOVU_SUBSCRIBER_ID=${NOVU_SUBSCRIBER_ID-create-me}
     networks:
       db_nw:
         aliases:
