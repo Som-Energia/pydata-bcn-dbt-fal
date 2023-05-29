@@ -4,3 +4,4 @@ selectors:
     definition:
       union:
         - demand_ree
+        - forecast_ree

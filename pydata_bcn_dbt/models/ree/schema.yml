@@ -10,3 +10,11 @@ models:
       fal:
         scripts:
           - demand_ree.py
+  - name: forecast_ree
+    description: A forecast using prophet on all the data from demand_ree
+    config:
+      materialized: view
+    meta:
+      fal:
+        scripts:
+          - forecast_ree.py
