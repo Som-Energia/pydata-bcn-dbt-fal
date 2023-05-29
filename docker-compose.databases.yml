@@ -3,6 +3,7 @@ version: "3.9"
 
 services:
   db-dev:
+    container_name: db_dev
     image: postgres:14
     restart: unless-stopped
     environment:
@@ -19,6 +20,7 @@ services:
           - postgres_dev
 
   db-prod:
+    container_name: db_prod
     image: postgres:14
     restart: unless-stopped
     environment:
@@ -35,6 +37,7 @@ services:
           - postgres_prod
 
   pgadmin:
+    container_name: pgadmin
     image: dpage/pgadmin4:7.0
     restart: unless-stopped
     environment:

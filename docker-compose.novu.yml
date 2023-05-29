@@ -4,12 +4,12 @@ version: "3"
 services:
   redis:
     image: "redis:alpine"
-    container_name: redis
+    container_name: novu_redis
     logging:
       driver: "none"
   mongodb:
     image: mongo
-    container_name: mongodb
+    container_name: novu_mongodb
     logging:
       driver: "none"
     environment:
@@ -25,7 +25,7 @@ services:
     depends_on:
       - mongodb
       - redis
-    container_name: api
+    container_name: novu_api
     environment:
       NODE_ENV: ${NODE_ENV}
       API_ROOT_URL: ${API_ROOT_URL}
@@ -62,7 +62,7 @@ services:
     depends_on:
       - mongodb
       - redis
-    container_name: worker
+    container_name: novu_worker
     environment:
       NODE_ENV: ${NODE_ENV}
       MONGO_URL: ${MONGO_URL}
@@ -86,7 +86,7 @@ services:
     depends_on:
       - mongodb
       - redis
-    container_name: ws
+    container_name: novu_ws
     environment:
       PORT: ${WS_PORT}
       NODE_ENV: ${NODE_ENV}
@@ -103,7 +103,7 @@ services:
     depends_on:
       - api
       - worker
-    container_name: web
+    container_name: novu_web
     environment:
       REACT_APP_API_URL: ${API_ROOT_URL}
       REACT_APP_ENVIRONMENT: ${NODE_ENV}
@@ -118,7 +118,7 @@ services:
       - api
       - worker
       - web
-    container_name: widget
+    container_name: novu_widget
     environment:
       REACT_APP_API_URL: ${API_ROOT_URL}
       REACT_APP_WS_URL: ${REACT_APP_WS_URL}
@@ -130,7 +130,7 @@ services:
     depends_on:
       - widget
     image: "ghcr.io/novuhq/novu/embed:0.15.0"
-    container_name: embed
+    container_name: novu_embed
     environment:
       WIDGET_URL: ${WIDGET_URL}
     ports:
