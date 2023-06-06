@@ -22,7 +22,7 @@ services:
   postgresql:
     container_name: openmetadata_postgresql
     image: docker.getcollate.io/openmetadata/postgresql:1.0.0
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
@@ -57,7 +57,7 @@ services:
 
   openmetadata-server:
     container_name: openmetadata_server
-    restart: always
+    restart: unless-stopped
     image: docker.getcollate.io/openmetadata/server:1.0.0
     environment:
       # OpenMetadata Server Authentication Configuration
