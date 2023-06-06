@@ -18,10 +18,8 @@
 			"extensions": [
 				"stackbreak.comment-divider",
 				"donjayamanne.githistory",
-				"GitHub.copilot",
 				"codezombiech.gitignore",
 				"ms-python.python",
-				"trunk.io",
 				"innoverio.vscode-dbt-power-user",
 				"elagil.pre-commit-helper",
 				"ms-toolsai.jupyter"
