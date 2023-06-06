@@ -6,7 +6,7 @@ from novu.api import EventApi
 from prophet import Prophet
 
 
-def model(dbt, session):
+def model(dbt, session) -> pd.DataFrame:
     df = dbt.ref("demand_ree")
 
     # prophet expects a dataframe with a column named "ds" and a column named "y"
