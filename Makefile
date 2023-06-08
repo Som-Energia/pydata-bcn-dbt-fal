@@ -15,8 +15,11 @@ build: ## build docker images with docker compose
 build-from-scratch: ## build docker images and ignore existing caches
 	@docker compose build --progress=plain --no-cache
 
-sh: ## run a shell in the container
-	@docker compose run --rm -it --entrypoint sh dev_env
+run.bash: ## run a bash shell in the container
+	@docker compose run --rm -it --entrypoint bash dev_env
+
+exec.bash: ## run a bash shell in the container
+	@docker compose exec -it dev_env bash
 
 sh.target-builder: ## run a shell in the container
 	@docker compose run --rm -it --entrypoint sh builder
@@ -42,12 +45,10 @@ lint: ## run flake8 linter inside the container
 
 ci: isort format type lint pytest ## run CI checks inside the container
 
+
 # ---------------------------------------------------------------------------- #
-#                                 novu demo app                                #
+#                                 dbt examples                                 #
 # ---------------------------------------------------------------------------- #
 
-novu.demo-app.install: ## install the demo app provided by novu
-	@cd notification-center-demo && npm run setup:onboarding -- kemCTwJofzaN 982454b92921646f6ce5bcec45c2d4cf http://localhost:3000 http://localhost:3002
-
-novu.demo-app.launch: ## install the demo app provided by novu
-	@cd notification-center-demo && npm run devq
+demo.forecast: ## launch demo forecast with REE data
+	@dbt run --target dev_with_fal -m demand_ree+ --project-dir pydata_bcn_dbt/
