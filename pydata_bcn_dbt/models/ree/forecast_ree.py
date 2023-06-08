@@ -46,6 +46,10 @@ def model(dbt, session) -> pd.DataFrame:
         payload={"results": {"yhat_mean": f"{yhat_mean:0.2f}"}},
     )
 
+    # craft forecasted_at column
+    # https://docs.python.org/3.12/library/datetime.html#datetime.datetime.utcnow
+    forecast["forecasted_at"] = dt.datetime.now(dt.timezone.utc)
+
     return forecast
 
 

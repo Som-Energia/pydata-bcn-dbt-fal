@@ -5,3 +5,4 @@ selectors:
       union:
         - demand_ree
         - forecast_ree
+        - forecast_ree_incremental

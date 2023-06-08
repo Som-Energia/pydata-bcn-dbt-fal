@@ -9,7 +9,7 @@
 		"*.sql": "jinja-sql"
 	},
 	"[jinja-sql]": {
-		"editor.defaultFormatter": "trunk.io",
+		"editor.defaultFormatter": "innoverio.vscode-dbt-power-user",
 		"editor.formatOnSave": true
 	},
 	"[dockercompose]": {

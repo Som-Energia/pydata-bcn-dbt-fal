@@ -51,4 +51,4 @@ ci: isort format type lint pytest ## run CI checks inside the container
 # ---------------------------------------------------------------------------- #
 
 demo.forecast: ## launch demo forecast with REE data
-	@dbt run --target dev_with_fal -m demand_ree+ --project-dir pydata_bcn_dbt/
+	@dbt run --target dev_with_fal --selector ree_forecast --project-dir pydata_bcn_dbt/
