@@ -7,12 +7,15 @@ from prophet import Prophet
 
 
 def model(dbt, session) -> pd.DataFrame:
+    dbt.config(materialized="table", fal_environment="forecasts")
+
     df = dbt.ref("demand_ree")
 
     # prophet expects a dataframe with a column named "ds" and a column named "y"
     df = df.rename(columns={"timestamp": "ds", "ref_demand_2023_mw": "y"})
 
     m = Prophet()
+    m.add_country_holidays(country_name="Spain")
     m.fit(df)
 
     # create a future datafram

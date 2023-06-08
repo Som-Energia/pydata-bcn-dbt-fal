@@ -1,0 +1,8 @@
+---
+environments:
+  - name: forecasts
+    type: venv
+    requirements:
+      - prophet==1.1.2
+      - novu==1.2.0
+      - holidays==0.23
