@@ -9,6 +9,7 @@ services:
     volumes:
       - /dev/urandom:/dev/random:ro
       - ./containers/metabase/config.yml:/root/config.yml:ro
+      - metabase-data:/metabase-data
     ports:
       - 3010:3000
     environment:
@@ -24,7 +25,6 @@ services:
       db_nw:
         aliases:
           - metabase
-
     secrets:
       - db_password
       - db_user
@@ -37,6 +37,8 @@ services:
     image: postgres:latest
     container_name: metabase_postgres
     hostname: postgres
+    volumes:
+      - metabase-pgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_USER_FILE: /run/secrets/db_user
       POSTGRES_DB: metabase
@@ -59,3 +61,7 @@ secrets:
     file: ./containers/metabase/db_password.txt
   db_user:
     file: ./containers/metabase/db_user.txt
+
+volumes:
+  metabase-pgdata:
+  metabase-data:

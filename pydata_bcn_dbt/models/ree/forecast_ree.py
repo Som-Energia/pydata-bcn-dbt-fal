@@ -7,7 +7,12 @@ from prophet import Prophet
 
 
 def model(dbt, session) -> pd.DataFrame:
-    dbt.config(materialized="table", fal_environment="forecasts")
+
+    # run dbt to get the latest data
+    dbt.config(materialized="table")
+
+    # uncomment this line and comment the one above to enable virtual environment support
+    # dbt.config(materialized="table", fal_environment="forecasts")
 
     df = dbt.ref("demand_ree")
 
