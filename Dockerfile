@@ -108,9 +108,11 @@ RUN mkdir -p "/home/$USERNAME/.dbt"
 
 COPY ./containers/dev_env/dbt_profiles.yml /home/$USERNAME/.dbt/profiles.yml
 
-RUN chown -R ${USERNAME}:${USERNAME} ${WORKDIR}
+RUN chown -R ${USER_UID}:${USER_GID} ${WORKDIR}
 
 # install dependencies
 RUN poetry install --no-root
+
+COPY --chown=${USER_UID}:${USER_GID} . ${WORKDIR}
 
 USER ${USERNAME}
