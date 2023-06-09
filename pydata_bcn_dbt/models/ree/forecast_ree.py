@@ -46,7 +46,7 @@ def model(dbt, session) -> pd.DataFrame:
     yhat_mean = forecast["yhat"].mean().item()
 
     event_api.trigger(
-        name="my-ree-forecast-notification",
+        name=os.environ.get("NOVU_APP_NAME"),
         recipients=os.environ.get("NOVU_SUBSCRIBER_ID"),
         payload={"results": {"yhat_mean": f"{yhat_mean:0.2f}"}},
     )
