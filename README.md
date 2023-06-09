@@ -4,6 +4,10 @@ Example project with [dbt-fal](https://github.com/fal-ai/fal)
 
 ![Architecture](assets/img/pydata_architecture.png)
 
+## Slides
+
+<https://docs.google.com/presentation/d/1xvVA3SoM_Xfcou7X-QB46NT6HQggwqaNMzfLr8M0-Sk/edit?usp=sharing>
+
 ## Requirements
 
 ### docker
