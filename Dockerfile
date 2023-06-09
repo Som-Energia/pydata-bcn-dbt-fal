@@ -89,6 +89,7 @@ ARG USERNAME
 ARG USER_UID
 ARG USER_GID
 
+WORKDIR ${WORKDIR}
 
 # ------------------------------ user management ----------------------------- #
 
@@ -102,12 +103,14 @@ RUN apt-get update \
 	&& echo "$USERNAME" ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
 	&& chmod 0440 /etc/sudoers.d/$USERNAME
 
-# install dependencies
-RUN poetry install --no-root
-
 # Move profiles to .dbt
 RUN mkdir -p "/home/$USERNAME/.dbt"
 
 COPY ./containers/dev_env/dbt_profiles.yml /home/$USERNAME/.dbt/profiles.yml
+
+RUN chown -R ${USERNAME}:${USERNAME} ${WORKDIR}
+
+# install dependencies
+RUN poetry install --no-root
 
 USER ${USERNAME}
