@@ -9,6 +9,15 @@ export
 help: ## Print this help
 	@grep -E '^[0-9a-zA-Z_\-\.]+:.*?## .*$$' Makefile | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+up: ## shorthand for docker compose up
+	@docker compose up -d --force-recreate
+
+down: ## shorthand for docker compose down
+	@docker compose down
+
+wipe: ## shorthand for docker compose down -v
+	@docker compose down -v
+
 build: ## build docker images with docker compose
 	@docker compose build --progress=plain
 
@@ -50,5 +59,9 @@ ci: isort format type lint pytest ## run CI checks inside the container
 #                                 dbt examples                                 #
 # ---------------------------------------------------------------------------- #
 
+dbt.deps: ## install dbt dependencies
+	@dbt deps --project-dir pydata_bcn_dbt/
+
 demo.forecast: ## launch demo forecast with REE data
+	@$(MAKE) dbt.deps
 	@dbt run --target dev_with_fal --selector ree_forecast --project-dir pydata_bcn_dbt/
