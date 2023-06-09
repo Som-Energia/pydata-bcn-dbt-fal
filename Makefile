@@ -63,5 +63,4 @@ dbt.deps: ## install dbt dependencies
 	@dbt deps --project-dir pydata_bcn_dbt/
 
 demo.forecast: ## launch demo forecast with REE data
-	@$(MAKE) dbt.deps
 	@dbt run --target dev_with_fal --selector ree_forecast --project-dir pydata_bcn_dbt/
