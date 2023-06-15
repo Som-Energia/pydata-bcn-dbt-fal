@@ -14,6 +14,7 @@ services:
         - ghcr.io/som-energia/pydata-bcn-dbt-fal:latest
     volumes:
       - .:/app:cached
+      - python_venv:/app/.venv
     environment:
       - NOVU_API_KEY=${NOVU_API_KEY}
       - NOVU_SUBSCRIBER_ID=${NOVU_SUBSCRIBER_ID}
@@ -37,3 +38,4 @@ networks:
 volumes:
   pgdata_dev:
   pgdata_prod:
+  python_venv:
